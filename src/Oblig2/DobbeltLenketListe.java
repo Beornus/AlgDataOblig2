@@ -42,11 +42,11 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private int endringer;         // antall endringer i listen
 
     public DobbeltLenketListe() {
-        throw new UnsupportedOperationException();
+        //Uppgift 1? Göra färdigt denna konstruktören i uppgift 1? Kolla igenom text igen.
     }
 
     public DobbeltLenketListe(T[] a) {
-        throw new UnsupportedOperationException();
+        //Uppgift 1. Göra färdigt denna konstruktören. Lägg värdena i samma följd i listan som i tabellen. Kastar NullPointerException.
     }
 
     public Liste<T> subliste(int fra, int til){
@@ -55,12 +55,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public int antall() {
-        throw new UnsupportedOperationException();
+        // Uppgift 1. Skriva en metod för att räkna antal noder i listan. Går igenom alla värden och ökar med en för varje runda.
     }
 
     @Override
     public boolean tom() {
-        throw new UnsupportedOperationException();
+        //Uppgift 1. Skriva en metod för att kolla om listan är tom eller inte. Kolla om head är lika null t.ex.
     }
 
     @Override
