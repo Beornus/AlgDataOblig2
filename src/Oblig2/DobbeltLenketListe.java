@@ -150,11 +150,16 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public String toString(){
-        throw new UnsupportedOperationException();
+        //Uppgift 2. Skriv denna metoden så att värdena i listan kommer ut i formatet [värde, värde, värde]. Bara [] om listan är tom. Använd StringBuilder eller Joiner.
+
+        //Här har jag tänkt mig att skriva en kod som först "Stringifierar" innehållet i listan. Sen gå igenom med lökke för att få med allt innehållet och såklart att ha med tillfället
+        //där listan är tom med hjälp av if-statements.
     }
 
     public String omvendtString(){
-        throw new UnsupportedOperationException();
+        //Uppgift 2. Skriv denna metoden för att skriva ut String-värden, fast åt motsatt håll från metoden över.
+
+        //Här har jag tänkt att försöka mig på motsatsen av det över. Får se om jag får några överraskningar.
     }
 
     @Override
