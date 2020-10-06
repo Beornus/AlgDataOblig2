@@ -55,12 +55,29 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public int antall() {
-        // Uppgift 1. Skriva en metod för att räkna antal noder i listan. Går igenom alla värden och ökar med en för varje runda.
+        if(!tom()){ //Om listan inte är tom så går vi in och räknar antal noder.
+            Node aktuell = hode; //Sätter en variabel på första hodenoden som vi ska räkna framåt.
+            antall = 0; //Sätter räknaren på 0.
+            while(aktuell != null){ //Så länge aktuell inte är null så går vi igenom lökken.
+                antall++; //Ökar på räknaren för antall.
+                aktuell = aktuell.neste; //Sätter aktuell till att vara nästa värde i listan.
+            }
+            return antall; //Returnerar antal värden i listan.
+        }
+        else{ //Om listan är tom så returneras 0.
+            return 0;
+        }
     }
 
     @Override
     public boolean tom() {
-        //Uppgift 1. Skriva en metod för att kolla om listan är tom eller inte. Kolla om head är lika null t.ex.
+        //return (hode == null)? true : false; //Övar på denna syntaxen
+        if(hode == null){
+            return true; //Om hode är null så är listan tom och ska då returnera true.
+        }
+        else{ // Om hode inte är null så är inte listan tom och returnerar false.
+            return false;
+        }
     }
 
     @Override
