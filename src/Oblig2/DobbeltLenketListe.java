@@ -42,11 +42,17 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private int endringer;         // antall endringer i listen
 
     public DobbeltLenketListe() {
-        //Uppgift 1? Göra färdigt denna konstruktören i uppgift 1? Kolla igenom text igen.
+        //Standardkonstruktör.
+        hode = null;
+        hale = null;
+        antall = 0;
+        endringer = 0;
     }
 
     public DobbeltLenketListe(T[] a) {
+
         //Uppgift 1. Göra färdigt denna konstruktören. Lägg värdena i samma följd i listan som i tabellen. Kastar NullPointerException.
+        //Ska bara ta med alla värden som inte är null från a.
     }
 
     public Liste<T> subliste(int fra, int til){
