@@ -49,15 +49,26 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public DobbeltLenketListe(T[] a) {
-        if (a.length < 1) { // Om tabellen inte är tom så går vi in här.
-            throw new NullPointerException("Tabellen a är null!");
-        }
-        else{
-            for (int i = 0; i < a.length; i++) { //En forlökke för att gå igenom allt i a.
-                if(a[i] != null){ //Om värdet av a[i] inte är null så skapas en ny Node med det nuvarande värdet.
-                    new Node<T>(a[i]);
+        this();  //Kallar standardkonstruktören med originalvärden som vi kan bygga vidare på.
+        Objects.requireNonNull(a, "Tabellen a är null!"); //Får ikke skrevet ut denne meldingen enda.
+
+        if(a.length < 0) throw new NullPointerException("Tabellen a är null!");
+
+        int i = 0; for (; i < a.length && a[i] == null; i++); //Går förbi alla värden som är null i en lökke, för att komma fram till det första värdet som inte är null.
+
+        if (i < a.length){ //Om i är mindre än längden på a.
+            Node<T> temporar = hode = new Node<>(a[i], null, null);  //Detta blir den första noden i vår lista, men pekare mot null både framåt och bakåt.
+            antall++; //Plussar på antalet med 1 då vi har en ny node.
+
+            for (i++; i < a.length; i++) //Plussar på i med 1 så vi går vidare till nästa värde i vår tabell och löper sen genom resten av värdena.
+            {
+                if (a[i] != null) //Om värdet av i inte är null så går vi in här.
+                {
+                    temporar = temporar.neste = new Node<>(a[i], null, null); //Skapar en ny node som kommer in efter den första.
+                    antall++; //Plussar på antalet.
                 }
             }
+            hale = temporar; //Sätter värdet på hale till det temporära värdet.
         }
     }
 
