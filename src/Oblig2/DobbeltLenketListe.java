@@ -156,16 +156,18 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         //där listan är tom med hjälp av if-statements.
 
         StringBuilder skriv = new StringBuilder(); //Skapar en StringBuilder som jag kan appenda information på.
+        skriv.append('['); //Startar toStringen med en klammeparentes, oavsett om listan är tom eller inte.
         if(!tom()){ //Om listan inte är tom så går vi in här.
             Node<T> current = hode; //Sätter en current Node som pekar på hode.
-            skriv.append(current); //lägger till current i vår StringBuilder
+            skriv.append(current.verdi); //lägger till värdet för current i vår StringBuilder
             current = current.neste; //Gör så att current hoppar fram ett steg i listan.
 
             while(current != null){ //Löper igenom hela listan med whilelökke.
-                skriv.append(current); //legger till current i Stringbuilder
+                skriv.append(current.verdi); //legger till värdet för current i Stringbuilder
                 current = current.neste; //Hoppar ett steg.
             }
         }
+        skriv.append(']'); //Avslutar med en klammeparentes. Även tom lista.
         return skriv.toString(); //Returnerar toString.
 
     }
