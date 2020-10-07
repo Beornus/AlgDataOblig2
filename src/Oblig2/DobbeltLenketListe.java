@@ -105,7 +105,21 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean leggInn(T verdi){
-        throw new UnsupportedOperationException();
+        Objects.requireNonNull(verdi, "Värdet är null"); //Kollar om värdet som kommer in är null.
+        Node<T> siste = new Node<>(verdi); //Skapar en ny node med värdet vi får in.
+        if(hode == null){ //Om hode är null så är listan tom.
+            hode = hale = siste; //Sätter hode och hale til att vara vårt värde vi fick in.
+        }
+        else{
+            Node<T> current = hode; //Annars sätter vi en current till hodenoden.
+            while(current.neste != null){ //Löper igenom så länge listan inte är null.
+                current = current.neste; //Flyttar current ett steg framåt.
+            }
+            current.neste = siste; //Sätter siste til att vara efter current som här är det sista värdet.
+            siste.forrige = current; //Sätter forrigepekeren på siste till current.
+            hale = siste; //Sätter halepekaren till siste.
+        }
+        return true; //Returnerar lyckad inläggning.
     }
 
     @Override
