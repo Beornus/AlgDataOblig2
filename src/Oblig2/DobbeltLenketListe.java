@@ -64,6 +64,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
         else{ //Måste hitta ett sätt att kunna gå bakåt i listan.
             Node<T> current = hode; //Sätter en current på hode.
+            for(int i =0; i<indeks; i++){ //Kode jag har skrivit bara för å få testen att komma längre medan jag jobbar på andra metoder.
+                current = current.neste;
+            }
             return current;
         }
     }
@@ -172,13 +175,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public T oppdater(int indeks,T nyverdi){
         //uppgift 3a Denna metoden ska ersätta värdet på funnet index med en nyverdi och returnera det värdet som låg där förr. Kom ihåg att kolla index, nullvärden och att öka på endringer.
-
         Objects.requireNonNull(nyverdi, "Värdet är null"); //kollar så att det nya värdet inte är null.
+        indeksKontroll(indeks, false); //Om indeks är false så är det ogiltigt antal.
 
         Node<T> hittadNode = finnNode(indeks); //Sätter en pekare mot noden som finnNode-metoden hittar med sitt index.
+        T gammaltVarde = hittadNode.verdi; //Sparar värdet på vår hittade node i en gammaltVarde-variabel.
         hittadNode.verdi = nyverdi; // Sätter värdet på den hittade noden lik det nya värdet vi får in.
 
-        return hittadNode.verdi; //Returnerar värdet till hittad node.
+        return gammaltVarde; //Returnerar det gamla värdet till den hittade noden.
 
     }
 
