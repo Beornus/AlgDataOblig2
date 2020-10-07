@@ -62,10 +62,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             }
             return current; //Returnerar indexen.
         }
-        else{ //Måste hitta ett sätt att kunna gå bakåt i listan.
-            Node<T> current = hode; //Sätter en current på hode.
-            for(int i =0; i<indeks; i++){ //Kode jag har skrivit bara för å få testen att komma längre medan jag jobbar på andra metoder.
-                current = current.neste;
+        else{
+            Node<T> current = hale; //Sätter en current på hode.
+            for(int i =antall-1; i>indeks; i--){ //Startar forlökken på sista värdet och går bakåt för att hitta index.
+                current = current.forrige;
             }
             return current;
         }
@@ -96,6 +96,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public Liste<T> subliste(int fra,int til){
+        //Denna metoden ska returnera en lista.
+
         throw new UnsupportedOperationException();
     }
 
@@ -117,13 +119,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean tom(){
-        //return (hode == null)? true : false; //Övar på denna syntaxen
-        if(hode==null){
-            return true; //Om hode är null så är listan tom och ska då returnera true.
-        }
-        else{ // Om hode inte är null så är inte listan tom och returnerar false.
-            return false;
-        }
+        return hode == null; //Effektiviserade denna koden.
     }
 
     @Override
