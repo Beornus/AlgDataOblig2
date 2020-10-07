@@ -154,12 +154,31 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         //Här har jag tänkt mig att skriva en kod som först "Stringifierar" innehållet i listan. Sen gå igenom med lökke för att få med allt innehållet och såklart att ha med tillfället
         //där listan är tom med hjälp av if-statements.
+
+        StringBuilder skriv = new StringBuilder(); //Skapar en StringBuilder som jag kan appenda information på.
+        if(!tom()){ //Om listan inte är tom så går vi in här.
+            Node<T> current = hode; //Sätter en current Node som pekar på hode.
+            skriv.append(current); //lägger till current i vår StringBuilder
+            current = current.neste; //Gör så att current hoppar fram ett steg i listan.
+
+            while(current != null){ //Löper igenom hela listan med whilelökke.
+                skriv.append(current); //legger till current i Stringbuilder
+                current = current.neste; //Hoppar ett steg.
+            }
+        }
+        return skriv.toString(); //Returnerar toString.
+
     }
 
     public String omvendtString(){
         //Uppgift 2. Skriv denna metoden för att skriva ut String-värden, fast åt motsatt håll från metoden över.
-
         //Här har jag tänkt att försöka mig på motsatsen av det över. Får se om jag får några överraskningar.
+        StringBuilder skrivBak = new StringBuilder();
+        if (!tom()){
+            Node<T> current = hale;
+
+        }
+        return skrivBak.toString();
     }
 
     @Override
