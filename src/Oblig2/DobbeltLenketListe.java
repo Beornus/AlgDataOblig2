@@ -48,6 +48,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         endringer = 0;
     }
 
+    private Node<T> finnNode(int indeks)
+    {
+        //Skapade ny metode då jag inte hittade någon i filen.
+        //Denna metoden ska söka efter indexen till en node och returnera positionen.
+        //Om indeksen är mindre än antalet noder / 2 så ska sökningen starta med hodet, annars med halen.
+    }
+
     public DobbeltLenketListe(T[] a) {
         this();  //Kallar standardkonstruktören med originalvärden som vi kan bygga vidare på.
         Objects.requireNonNull(a, "Tabellen a är null!"); //Får ikke skrevet ut denne meldingen enda.
@@ -109,6 +116,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         Node<T> siste = new Node<>(verdi); //Skapar en ny node med värdet vi får in.
         if(hode == null){ //Om hode är null så är listan tom.
             hode = hale = siste; //Sätter hode och hale til att vara vårt värde vi fick in.
+            antall++;
+            endringer++;
         }
         else{
             Node<T> current = hode; //Annars sätter vi en current till hodenoden.
@@ -118,6 +127,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             current.neste = siste; //Sätter siste til att vara efter current som här är det sista värdet.
             siste.forrige = current; //Sätter forrigepekeren på siste till current.
             hale = siste; //Sätter halepekaren till siste.
+            antall++;
+            endringer++;
         }
         return true; //Returnerar lyckad inläggning.
     }
@@ -134,7 +145,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T hent(int indeks){
-        throw new UnsupportedOperationException();
+        //Uppgift 3a Använd metoden finnNode(). Se att index kollas. Använd också indeksKontroll() som ärvs från Lista (?) med false som parameter.
     }
 
     @Override
@@ -144,7 +155,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T oppdater(int indeks,T nyverdi){
-        throw new UnsupportedOperationException();
+        //uppgift 3a Denna metoden ska ersätta värdet på funnet index med en nyverdi och returnera det värdet som låg där förr. Kom ihåg att kolla index, nullvärden och att öka på endringer.
     }
 
     @Override
