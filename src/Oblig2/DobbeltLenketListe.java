@@ -53,6 +53,19 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         //Skapade ny metode då jag inte hittade någon i filen.
         //Denna metoden ska söka efter indexen till en node och returnera positionen.
         //Om indeksen är mindre än antalet noder / 2 så ska sökningen starta med hodet, annars med halen.
+
+        if(hode == null) return hode; //Om hode är null så returnerar vi hode;
+        if(indeks < antall/2){ //Om index är mindre än antal noder delat på 2 så söker vi efter noden från hodet.
+            Node<T> current = hode;
+            for (int i = 0; i < indeks; i++) { //Löper igenom tills vi kommer fram till index.
+                current = current.neste;
+            }
+            return current; //Returnerar indexen.
+        }
+        else{ //Måste hitta ett sätt att kunna gå bakåt i listan.
+            Node<T> current = hode; //Sätter en current på hode.
+            return current;
+        }
     }
 
     public DobbeltLenketListe(T[] a) {
