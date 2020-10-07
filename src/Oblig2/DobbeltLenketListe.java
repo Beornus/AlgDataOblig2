@@ -159,6 +159,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public T hent(int indeks){
         //Uppgift 3a Använd metoden finnNode(). Se att index kollas. Använd också indeksKontroll() som ärvs från Lista (?) med false som parameter.
+
+        indeksKontroll(indeks, false);
+        return finnNode(indeks).verdi;
     }
 
     @Override
@@ -169,6 +172,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public T oppdater(int indeks,T nyverdi){
         //uppgift 3a Denna metoden ska ersätta värdet på funnet index med en nyverdi och returnera det värdet som låg där förr. Kom ihåg att kolla index, nullvärden och att öka på endringer.
+
+        Objects.requireNonNull(nyverdi, "Värdet är null"); //kollar så att det nya värdet inte är null.
+
+        Node<T> hittadNode = finnNode(indeks); //Sätter en pekare mot noden som finnNode-metoden hittar med sitt index.
+        hittadNode.verdi = nyverdi; // Sätter värdet på den hittade noden lik det nya värdet vi får in.
+
+        return hittadNode.verdi; //Returnerar värdet till hittad node.
+
     }
 
     @Override
