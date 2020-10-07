@@ -163,7 +163,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             current = current.neste; //Gör så att current hoppar fram ett steg i listan.
 
             while(current != null){ //Löper igenom hela listan med whilelökke.
-                skriv.append(current.verdi); //legger till värdet för current i Stringbuilder
+                skriv.append(',').append(' ').append(current.verdi); //lägger till karaktärer för att få rätt formatering plus värdet för current i vår StringBuilder
                 current = current.neste; //Hoppar ett steg.
             }
         }
@@ -183,7 +183,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             current = current.forrige;
 
             while(current != null){
-                skrivBak.append(current.verdi);
+                skrivBak.append(',').append(' ').append(current.verdi);
                 current = current.forrige;
             }
         }
