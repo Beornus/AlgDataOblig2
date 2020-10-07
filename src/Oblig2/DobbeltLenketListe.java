@@ -176,10 +176,18 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         //Uppgift 2. Skriv denna metoden för att skriva ut String-värden, fast åt motsatt håll från metoden över.
         //Här har jag tänkt att försöka mig på motsatsen av det över. Får se om jag får några överraskningar.
         StringBuilder skrivBak = new StringBuilder();
+        skrivBak.append('[');
         if (!tom()){
-            Node<T> current = hale;
+            Node<T> current = hale;   //Ca samma metod som ovan, bara att jag startar med current på halen och går bakover med forrige.
+            skrivBak.append(current.verdi);
+            current = current.forrige;
 
+            while(current != null){
+                skrivBak.append(current.verdi);
+                current = current.forrige;
+            }
         }
+        skrivBak.append(']');
         return skrivBak.toString();
     }
 
