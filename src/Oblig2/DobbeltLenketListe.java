@@ -157,6 +157,17 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public void leggInn(int indeks,T verdi){
+        //Metoden får in en indeks och en verdi som parameter.
+        //Den ska sätta in det nya värdet på indeksen i parametern och då kommer alla andra värden efter den indexen att flyttas ett hack framåt.
+        //Bara indexer från 0 till antall är giltiga.
+        //Passa på fyra tillfällen:
+        //1. Listan är tom.
+        //2. Verdi ska läggas först i listan.
+        //3. Verdi ska läggas bakerst i listan.
+        //4. Verdi ska läggas mellan två andra värden i listan.
+        //Kom ihåg att sätta alla forrige och nestepekare rätt. Hode ska ha null på forrige och hale ska ha null på neste.
+        //Kolla genom checklistan i uppgiften innan du är klar.
+
         throw new UnsupportedOperationException();
     }
 
