@@ -112,7 +112,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public Liste<T> subliste(int fra,int til){
-        //Skapa en metode som gör en egen lista i intervallet [fra:til>. Kolla om index fra och til är lovliga. Annars kasta undantag som i fraTilKontroll()
         fratilKontroll(antall, fra, til);                               //Går igenom fraTilKontroll för att kolla att index är lovliga.
         DobbeltLenketListe<T> nyListe = new DobbeltLenketListe<>();     //Skapar en ny dobbelt lenket liste att lagra det nya intervallet i.
         for(int i = fra; i < til; i++){                                 //Går igenom listan vi tog in från intervallet fra:til och använder leggInn-metoden för att lägga in värdena i den aktuella i i vår lista.
@@ -184,6 +183,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean inneholder(T verdi){
+        //Denna metoden ska returnera true om verdi finns i listan. Annars ska den returnera false. Kan fint använda metoden indeksTil här.
+
+        //If indeksTil(verdi) finnes
+        //return true;
+
+        //Else return false.
+
         throw new UnsupportedOperationException();
     }
 
@@ -195,6 +201,16 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public int indeksTil(T verdi){
+        //Denna metoden ska returnera indexen till verdi om den finns i listan, annars ska den returnera -1. Det ska inte kastas undantag om verdi är null, då ska den också returnera -1.
+        //Om verdi förekommer mer än en gång i listan så ska den första från vänster returneras.
+
+        //Skapa en pekare till en current node.
+        //Gå igenom listan med en forlökke för att hitta värdet i current.verdi.
+
+        //om värdet == null. return -1.
+
+        //Om inte verdi hittas i listan return -1.
+
         throw new UnsupportedOperationException();
     }
 
