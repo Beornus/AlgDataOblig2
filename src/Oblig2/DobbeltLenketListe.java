@@ -183,14 +183,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean inneholder(T verdi){
-        //Denna metoden ska returnera true om verdi finns i listan. Annars ska den returnera false. Kan fint använda metoden indeksTil här.
-
-        //If indeksTil(verdi) finnes
-        //return true;
-
-        //Else return false.
-
-        throw new UnsupportedOperationException();
+        if (indeksTil(verdi) != -1){ //Om indexen till indeksTil(verdi) inte är -1 så returneras true. Annars false.
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     @Override
