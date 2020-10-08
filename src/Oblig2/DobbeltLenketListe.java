@@ -70,29 +70,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public DobbeltLenketListe(T[] a) {
         //this();                                                                             //Kallar standardkonstruktören med originalvärden som vi kan bygga vidare på.
         Objects.requireNonNull(a, "Tabellen a är null!");                            //Får ikke skrevet ut denne meldingen enda.
-
-        /*if(a.length < 0) throw new NullPointerException("Tabellen a är null!");
-
-        int i = 0; for (; i < a.length && a[i] == null; i++);                                 //Går förbi alla värden som är null i en lökke, för att komma fram till det första värdet som inte är null.
-
-        if (i < a.length){                                                                    //Om i är mindre än längden på a.
-            Node<T> temporar = hode = new Node<>(a[i], null, null);                           //Detta blir den första noden i vår lista, men pekare mot null både framåt och bakåt.
-            antall++;                                                                         //Plussar på antalet med 1 då vi har en ny node.
-
-            for (i++; i < a.length; i++)                                                      //Plussar på i med 1 så vi går vidare till nästa värde i vår tabell och löper sen genom resten av värdena.
-            {
-                if (a[i] != null)                                                             //Om värdet av i inte är null så går vi in här.
-                {
-                    temporar = temporar.neste = new Node<>(a[i], null, null);                 //Skapar en ny node som kommer in efter den första.
-                    antall++;                                                                 //Plussar på antalet.
-                }
-                else{
-
-                }
-            }
-            hale = temporar;                                                                 //Sätter värdet på hale till det temporära värdet.
-        }*/
-
         for(T current : a){                             //Gör en forEach-lökke för att gå igenom alla element i a.
             if(current == null) continue;               //Om det aktuella värdet i vår lökke är null så hoppar den over med continue; (Tips från medstudent. Aldrig använt continue förr)
 
@@ -101,10 +78,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             if(hode == null){                           //Om hode är null, dvs att listan är tom, så går vi in här.
                 nyNode.forrige = null;                  //Sätter forrigepekeren till vår nya node till null.
                 hode = nyNode;                          //Sätter hode till vår nya node.
+                antall++;
             }
             else{
                 nyNode.forrige = hale;                  //Sätter vår nya nodes forrigepekare till att vara vår hale.
                 hale.neste = nyNode;                    //Sätter vår hale sin nestepekare till att vara vår nya node.
+                antall++;
             }
             hale = nyNode;                              //Sätter halen till att vara vår nya node som nu ligger längst bak.
             nyNode.neste = null;                        //Sätter vår nya node sin nestepekare till att vara null.
@@ -199,9 +178,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public int indeksTil(T verdi){
-        //Denna metoden ska returnera indexen till verdi om den finns i listan, annars ska den returnera -1. Det ska inte kastas undantag om verdi är null, då ska den också returnera -1.
-        //Om verdi förekommer mer än en gång i listan så ska den första från vänster returneras.
-
         if(verdi == null){                                  //Om verdi är null så returneras -1.
             return -1;
         }
