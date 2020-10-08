@@ -93,13 +93,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     public Liste<T> subliste(int fra,int til){
         //Skapa en metode som gör en egen lista i intervallet [fra:til>. Kolla om index fra och til är lovliga. Annars kasta undantag som i fraTilKontroll()
-        fratilKontroll(antall, fra, til); //Går igenom fraTilKontroll för att kolla att index är lovliga.
-        DobbeltLenketListe<T> nyListe = new DobbeltLenketListe<>(); //Skapar en ny dobbelt lenket liste att lagra det nya intervallet i.
-        for(int i = fra; i < til; i++){ //Går igenom listan vi tog in från intervallet fra:til och använder leggInn-metoden för att lägga in värdena i den aktuella i i vår lista.
+        fratilKontroll(antall, fra, til);                               //Går igenom fraTilKontroll för att kolla att index är lovliga.
+        DobbeltLenketListe<T> nyListe = new DobbeltLenketListe<>();     //Skapar en ny dobbelt lenket liste att lagra det nya intervallet i.
+        for(int i = fra; i < til; i++){                                 //Går igenom listan vi tog in från intervallet fra:til och använder leggInn-metoden för att lägga in värdena i den aktuella i i vår lista.
             nyListe.leggInn(finnNode(i).verdi);
         }
-        nyListe.endringer = 0; //Sätter endringer till 0 då vi har en ny lista.
-        return nyListe; //Returnerar vår nya lista.
+        nyListe.endringer = 0;                                          //Sätter endringer till 0 då vi har en ny lista.
+        return nyListe;                                                 //Returnerar vår nya lista.
     }
 
     private static void fratilKontroll(int antall, int fra, int til)
@@ -142,10 +142,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public boolean leggInn(T verdi){
         Objects.requireNonNull(verdi, "Värdet är null");          //Kollar om värdet som kommer in är null.
         Node<T> siste = new Node<>(verdi);                                 //Skapar en ny node med värdet vi får in.
+        siste.neste = null;                                                //Sätter nestepekaren til siste att vara null.
         if(hode == null){                                                  //Om hode är null så är listan tom.
-            hode = hale = siste;                                           //Sätter hode och hale til att vara vårt värde vi fick in.
-            antall++;
-            endringer++;
+            hode = siste;                                                  //Sätter hode och hale til att vara vårt värde vi fick in.
+            siste.forrige = null;
         }
         else{
             Node<T> current = hode;                                        //Annars sätter vi en current till hodenoden.
@@ -154,10 +154,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             }
             current.neste = siste;                                         //Sätter siste til att vara efter current som här är det sista värdet.
             siste.forrige = current;                                       //Sätter forrigepekeren på siste till current.
-            hale = siste;                                                  //Sätter halepekaren till siste.
-            antall++;
-            endringer++;
         }
+        hale = siste;                                                      //Sätter halepekaren till siste.
+        antall++;                                                          //Plussar på antall
+        endringer++;                                                       //Plussar på endringer
         return true;                                                       //Returnerar lyckad inläggning.
     }
 
