@@ -92,9 +92,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public Liste<T> subliste(int fra,int til){
-        //Denna metoden ska returnera en lista som innehåller värdena [fra:til> i "vår"(?) lista. Kolla om indexen fra och til är lovliga. Annars undantag som i fraTilKontroll().
-
-        throw new UnsupportedOperationException();
+        //Skapa en metode som gör en egen lista i intervallet [fra:til>. Kolla om index fra och til är lovliga. Annars kasta undantag som i fraTilKontroll()
+        fratilKontroll(antall, fra, til); //Går igenom fraTilKontroll för att kolla att index är lovliga.
+        DobbeltLenketListe<T> nyListe = new DobbeltLenketListe<>(); //Skapar en ny dobbelt lenket liste att lagra det nya intervallet i.
+        for(int i = fra; i < til; i++){ //Går igenom listan vi tog in från intervallet fra:til och använder leggInn-metoden för att lägga in värdena i den aktuella i i vår lista.
+            nyListe.leggInn(finnNode(i).verdi);
+        }
+        nyListe.endringer = 0; //Sätter endringer till 0 då vi har en ny lista.
+        return nyListe; //Returnerar vår nya lista.
     }
 
     private static void fratilKontroll(int antall, int fra, int til)
