@@ -68,26 +68,46 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public DobbeltLenketListe(T[] a) {
-        this();                                                                               //Kallar standardkonstruktören med originalvärden som vi kan bygga vidare på.
+        //this();                                                                             //Kallar standardkonstruktören med originalvärden som vi kan bygga vidare på.
         Objects.requireNonNull(a, "Tabellen a är null!");                            //Får ikke skrevet ut denne meldingen enda.
 
-        if(a.length < 0) throw new NullPointerException("Tabellen a är null!");
+        /*if(a.length < 0) throw new NullPointerException("Tabellen a är null!");
 
         int i = 0; for (; i < a.length && a[i] == null; i++);                                 //Går förbi alla värden som är null i en lökke, för att komma fram till det första värdet som inte är null.
 
         if (i < a.length){                                                                    //Om i är mindre än längden på a.
-            Node<T> temporar = hode = new Node<>(a[i], null, null);              //Detta blir den första noden i vår lista, men pekare mot null både framåt och bakåt.
+            Node<T> temporar = hode = new Node<>(a[i], null, null);                           //Detta blir den första noden i vår lista, men pekare mot null både framåt och bakåt.
             antall++;                                                                         //Plussar på antalet med 1 då vi har en ny node.
 
             for (i++; i < a.length; i++)                                                      //Plussar på i med 1 så vi går vidare till nästa värde i vår tabell och löper sen genom resten av värdena.
             {
                 if (a[i] != null)                                                             //Om värdet av i inte är null så går vi in här.
                 {
-                    temporar = temporar.neste = new Node<>(a[i], null, null);   //Skapar en ny node som kommer in efter den första.
-                    antall++;                                                                //Plussar på antalet.
+                    temporar = temporar.neste = new Node<>(a[i], null, null);                 //Skapar en ny node som kommer in efter den första.
+                    antall++;                                                                 //Plussar på antalet.
+                }
+                else{
+
                 }
             }
             hale = temporar;                                                                 //Sätter värdet på hale till det temporära värdet.
+        }*/
+
+        for(T current : a){                             //Gör en forEach-lökke för att gå igenom alla element i a.
+            if(current == null) continue;               //Om det aktuella värdet i vår lökke är null så hoppar den over med continue; (Tips från medstudent. Aldrig använt continue förr)
+
+            Node<T> nyNode = new Node<>(current);       //Skapar en ny node med värdet i current.
+
+            if(hode == null){                           //Om hode är null, dvs att listan är tom, så går vi in här.
+                nyNode.forrige = null;                  //Sätter forrigepekeren till vår nya node till null.
+                hode = nyNode;                          //Sätter hode till vår nya node.
+            }
+            else{
+                nyNode.forrige = hale;                  //Sätter vår nya nodes forrigepekare till att vara vår hale.
+                hale.neste = nyNode;                    //Sätter vår hale sin nestepekare till att vara vår nya node.
+            }
+            hale = nyNode;                              //Sätter halen till att vara vår nya node som nu ligger längst bak.
+            nyNode.neste = null;                        //Sätter vår nya node sin nestepekare till att vara null.
         }
     }
 
@@ -110,7 +130,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         if (til > antall)                                                  // til er utenfor tabellen
             throw new IndexOutOfBoundsException
-                    ("til(" + til + ") > tablengde(" + antall + ")");
+                    ("til(" + til + ") > antall(" + antall + ")");
 
         if (fra > til)                                                     // fra er større enn til
             throw new IllegalArgumentException
@@ -144,8 +164,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         Node<T> siste = new Node<>(verdi);                                 //Skapar en ny node med värdet vi får in.
         siste.neste = null;                                                //Sätter nestepekaren til siste att vara null.
         if(hode == null){                                                  //Om hode är null så är listan tom.
-            hode = siste;                                                  //Sätter hode och hale til att vara vårt värde vi fick in.
             siste.forrige = null;
+            hode = siste;                                                  //Sätter hode och hale til att vara vårt värde vi fick in.
         }
         else{
             siste.forrige = hale;                                          //Annars sätter vi sistes forrigepekare till halen.
@@ -229,9 +249,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         StringBuilder skrivBak = new StringBuilder();
         skrivBak.append('[');
         if (!tom()){
-            Node<T> current = hale;                                         //Ca samma metod som ovan, bara att jag startar med current på halen och går bakover med forrige.
+            /*Node<T> current = hale;                                         //Ca samma metod som ovan, bara att jag startar med current på halen och går bakover med forrige.
             skrivBak.append(current.verdi);
-            current = current.forrige;
+            current = current.forrige;*/
+
+            skrivBak.append(hale.verdi);
+            Node<T> current = hale.forrige;
 
             while(current != null){
                 skrivBak.append(',').append(' ').append(current.verdi);
