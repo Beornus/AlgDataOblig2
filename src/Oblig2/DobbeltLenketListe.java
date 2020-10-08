@@ -50,11 +50,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     private Node<T> finnNode(int indeks)
     {
-        //Skapade ny metode då jag inte hittade någon i filen.
-        //Denna metoden ska söka efter indexen till en node och returnera positionen.
-        //Om indeksen är mindre än antalet noder / 2 så ska sökningen starta med hodet, annars med halen.
-
-        if(hode == null) return hode; //Om hode är null så returnerar vi hode;
+        //if(hode == null) return hode; //Om hode är null så returnerar vi hode;
         if(indeks < antall/2){ //Om index är mindre än antal noder delat på 2 så söker vi efter noden från hodet.
             Node<T> current = hode;
             for (int i = 0; i < indeks; i++) { //Löper igenom tills vi kommer fram till index.
@@ -96,9 +92,24 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public Liste<T> subliste(int fra,int til){
-        //Denna metoden ska returnera en lista.
+        //Denna metoden ska returnera en lista som innehåller värdena [fra:til> i "vår"(?) lista. Kolla om indexen fra och til är lovliga. Annars undantag som i fraTilKontroll().
 
         throw new UnsupportedOperationException();
+    }
+
+    private static void fratilKontroll(int antall, int fra, int til)
+    {
+        if (fra < 0)                                  // fra er negativ
+            throw new IndexOutOfBoundsException
+                    ("fra(" + fra + ") er negativ!");
+
+        if (til > antall)                          // til er utenfor tabellen
+            throw new IndexOutOfBoundsException
+                    ("til(" + til + ") > tablengde(" + antall + ")");
+
+        if (fra > til)                                // fra er større enn til
+            throw new IllegalArgumentException
+                    ("fra(" + fra + ") > til(" + til + ") - illegalt intervall!");
     }
 
     @Override
