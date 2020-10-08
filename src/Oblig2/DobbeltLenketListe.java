@@ -204,14 +204,20 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         //Denna metoden ska returnera indexen till verdi om den finns i listan, annars ska den returnera -1. Det ska inte kastas undantag om verdi är null, då ska den också returnera -1.
         //Om verdi förekommer mer än en gång i listan så ska den första från vänster returneras.
 
-        //Skapa en pekare till en current node.
-        //Gå igenom listan med en forlökke för att hitta värdet i current.verdi.
+        if(verdi == null){                                  //Om verdi är null så returneras -1.
+            return -1;
+        }
+        Node<T> current = hode;                             //Sätter en currentpekare till hode.
 
-        //om värdet == null. return -1.
-
-        //Om inte verdi hittas i listan return -1.
-
-        throw new UnsupportedOperationException();
+        for(int i=0; i < antall; i++){                      //Går igenom listan med en forlökke.
+            if(current.verdi.equals(verdi)){                //Om värdet till current är samma som verdi i parametern så returneras i.
+                return i;
+            }
+            else{                                           //Annars så sätter vi current till att vara current.neste.
+                current = current.neste;
+            }
+        }
+        return -1;                                          //Hit kommer vi om verdi inte finns i listan, då returneras -1.
     }
 
     @Override
