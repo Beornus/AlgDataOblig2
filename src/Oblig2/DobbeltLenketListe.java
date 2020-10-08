@@ -50,17 +50,17 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     private Node<T> finnNode(int indeks)
     {
-        //if(hode == null) return hode; //Om hode är null så returnerar vi hode;
-        if(indeks < antall/2){ //Om index är mindre än antal noder delat på 2 så söker vi efter noden från hodet.
+        //if(hode == null) return hode;                     //Om hode är null så returnerar vi hode;
+        if(indeks < antall/2){                              //Om index är mindre än antal noder delat på 2 så söker vi efter noden från hodet.
             Node<T> current = hode;
-            for (int i = 0; i < indeks; i++) { //Löper igenom tills vi kommer fram till index.
+            for (int i = 0; i < indeks; i++) {              //Löper igenom tills vi kommer fram till index.
                 current = current.neste;
             }
-            return current; //Returnerar indexen.
+            return current;                                 //Returnerar indexen.
         }
         else{
-            Node<T> current = hale; //Sätter en current på hode.
-            for(int i =antall-1; i>indeks; i--){ //Startar forlökken på sista värdet och går bakåt för att hitta index.
+            Node<T> current = hale;                         //Sätter en current på hode.
+            for(int i =antall-1; i>indeks; i--){            //Startar forlökken på sista värdet och går bakåt för att hitta index.
                 current = current.forrige;
             }
             return current;
@@ -68,26 +68,26 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public DobbeltLenketListe(T[] a) {
-        this();  //Kallar standardkonstruktören med originalvärden som vi kan bygga vidare på.
-        Objects.requireNonNull(a, "Tabellen a är null!"); //Får ikke skrevet ut denne meldingen enda.
+        this();                                                                               //Kallar standardkonstruktören med originalvärden som vi kan bygga vidare på.
+        Objects.requireNonNull(a, "Tabellen a är null!");                            //Får ikke skrevet ut denne meldingen enda.
 
         if(a.length < 0) throw new NullPointerException("Tabellen a är null!");
 
-        int i = 0; for (; i < a.length && a[i] == null; i++); //Går förbi alla värden som är null i en lökke, för att komma fram till det första värdet som inte är null.
+        int i = 0; for (; i < a.length && a[i] == null; i++);                                 //Går förbi alla värden som är null i en lökke, för att komma fram till det första värdet som inte är null.
 
-        if (i < a.length){ //Om i är mindre än längden på a.
-            Node<T> temporar = hode = new Node<>(a[i], null, null);  //Detta blir den första noden i vår lista, men pekare mot null både framåt och bakåt.
-            antall++; //Plussar på antalet med 1 då vi har en ny node.
+        if (i < a.length){                                                                    //Om i är mindre än längden på a.
+            Node<T> temporar = hode = new Node<>(a[i], null, null);              //Detta blir den första noden i vår lista, men pekare mot null både framåt och bakåt.
+            antall++;                                                                         //Plussar på antalet med 1 då vi har en ny node.
 
-            for (i++; i < a.length; i++) //Plussar på i med 1 så vi går vidare till nästa värde i vår tabell och löper sen genom resten av värdena.
+            for (i++; i < a.length; i++)                                                      //Plussar på i med 1 så vi går vidare till nästa värde i vår tabell och löper sen genom resten av värdena.
             {
-                if (a[i] != null) //Om värdet av i inte är null så går vi in här.
+                if (a[i] != null)                                                             //Om värdet av i inte är null så går vi in här.
                 {
-                    temporar = temporar.neste = new Node<>(a[i], null, null); //Skapar en ny node som kommer in efter den första.
-                    antall++; //Plussar på antalet.
+                    temporar = temporar.neste = new Node<>(a[i], null, null);   //Skapar en ny node som kommer in efter den första.
+                    antall++;                                                                //Plussar på antalet.
                 }
             }
-            hale = temporar; //Sätter värdet på hale till det temporära värdet.
+            hale = temporar;                                                                 //Sätter värdet på hale till det temporära värdet.
         }
     }
 
@@ -99,61 +99,61 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     private static void fratilKontroll(int antall, int fra, int til)
     {
-        if (fra < 0)                                  // fra er negativ
+        if (fra < 0)                                                       // fra er negativ
             throw new IndexOutOfBoundsException
                     ("fra(" + fra + ") er negativ!");
 
-        if (til > antall)                          // til er utenfor tabellen
+        if (til > antall)                                                  // til er utenfor tabellen
             throw new IndexOutOfBoundsException
                     ("til(" + til + ") > tablengde(" + antall + ")");
 
-        if (fra > til)                                // fra er større enn til
+        if (fra > til)                                                     // fra er større enn til
             throw new IllegalArgumentException
                     ("fra(" + fra + ") > til(" + til + ") - illegalt intervall!");
     }
 
     @Override
     public int antall(){
-        if(!tom()){ //Om listan inte är tom så går vi in och räknar antal noder.
-            Node aktuell=hode; //Sätter en variabel på första hodenoden som vi ska räkna framåt.
-        antall=0; //Sätter räknaren på 0. (Kan nog ta bort denna då vi har 0 i konstruktören.)
-        while(aktuell!=null){ //Så länge aktuell inte är null så går vi igenom lökken.
-        antall++; //Ökar på räknaren för antall.
-        aktuell=aktuell.neste; //Sätter aktuell till att vara nästa värde i listan.
+        if(!tom()){                                                        //Om listan inte är tom så går vi in och räknar antal noder.
+            Node aktuell=hode;                                             //Sätter en variabel på första hodenoden som vi ska räkna framåt.
+        antall=0;                                                          //Sätter räknaren på 0. (Kan nog ta bort denna då vi har 0 i konstruktören.)
+        while(aktuell!=null){                                              //Så länge aktuell inte är null så går vi igenom lökken.
+        antall++;                                                          //Ökar på räknaren för antall.
+        aktuell=aktuell.neste;                                             //Sätter aktuell till att vara nästa värde i listan.
         }
-        return antall; //Returnerar antal värden i listan.
+        return antall;                                                     //Returnerar antal värden i listan.
         }
-        else{ //Om listan är tom så returneras 0.
+        else{                                                              //Om listan är tom så returneras 0.
             return 0;
         }
     }
 
     @Override
     public boolean tom(){
-        return hode == null; //Effektiviserade denna koden.
+        return hode == null;                                               //Effektiviserade denna koden.
     }
 
     @Override
     public boolean leggInn(T verdi){
-        Objects.requireNonNull(verdi, "Värdet är null"); //Kollar om värdet som kommer in är null.
-        Node<T> siste = new Node<>(verdi); //Skapar en ny node med värdet vi får in.
-        if(hode == null){ //Om hode är null så är listan tom.
-            hode = hale = siste; //Sätter hode och hale til att vara vårt värde vi fick in.
+        Objects.requireNonNull(verdi, "Värdet är null");          //Kollar om värdet som kommer in är null.
+        Node<T> siste = new Node<>(verdi);                                 //Skapar en ny node med värdet vi får in.
+        if(hode == null){                                                  //Om hode är null så är listan tom.
+            hode = hale = siste;                                           //Sätter hode och hale til att vara vårt värde vi fick in.
             antall++;
             endringer++;
         }
         else{
-            Node<T> current = hode; //Annars sätter vi en current till hodenoden.
-            while(current.neste != null){ //Löper igenom så länge listan inte är null.
-                current = current.neste; //Flyttar current ett steg framåt.
+            Node<T> current = hode;                                        //Annars sätter vi en current till hodenoden.
+            while(current.neste != null){                                  //Löper igenom så länge listan inte är null.
+                current = current.neste;                                   //Flyttar current ett steg framåt.
             }
-            current.neste = siste; //Sätter siste til att vara efter current som här är det sista värdet.
-            siste.forrige = current; //Sätter forrigepekeren på siste till current.
-            hale = siste; //Sätter halepekaren till siste.
+            current.neste = siste;                                         //Sätter siste til att vara efter current som här är det sista värdet.
+            siste.forrige = current;                                       //Sätter forrigepekeren på siste till current.
+            hale = siste;                                                  //Sätter halepekaren till siste.
             antall++;
             endringer++;
         }
-        return true; //Returnerar lyckad inläggning.
+        return true;                                                       //Returnerar lyckad inläggning.
     }
 
     @Override
@@ -168,8 +168,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T hent(int indeks){
-        //Uppgift 3a Använd metoden finnNode(). Se att index kollas. Använd också indeksKontroll() som ärvs från Lista (?) med false som parameter.
-
         indeksKontroll(indeks, false);
         return finnNode(indeks).verdi;
     }
@@ -181,15 +179,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T oppdater(int indeks,T nyverdi){
-        //uppgift 3a Denna metoden ska ersätta värdet på funnet index med en nyverdi och returnera det värdet som låg där förr. Kom ihåg att kolla index, nullvärden och att öka på endringer.
-        Objects.requireNonNull(nyverdi, "Värdet är null"); //kollar så att det nya värdet inte är null.
-        indeksKontroll(indeks, false); //Om indeks är false så är det ogiltigt antal.
+        Objects.requireNonNull(nyverdi, "Värdet är null");          //kollar så att det nya värdet inte är null.
+        indeksKontroll(indeks, false);                               //Om indeks är false så är det ogiltigt antal.
 
-        Node<T> hittadNode = finnNode(indeks); //Sätter en pekare mot noden som finnNode-metoden hittar med sitt index.
-        T gammaltVarde = hittadNode.verdi; //Sparar värdet på vår hittade node i en gammaltVarde-variabel.
-        hittadNode.verdi = nyverdi; // Sätter värdet på den hittade noden lik det nya värdet vi får in.
+        Node<T> hittadNode = finnNode(indeks);                              //Sätter en pekare mot noden som finnNode-metoden hittar med sitt index.
+        T gammaltVarde = hittadNode.verdi;                                  //Sparar värdet på vår hittade node i en gammaltVarde-variabel.
+        hittadNode.verdi = nyverdi;                                         // Sätter värdet på den hittade noden lik det nya värdet vi får in.
 
-        return gammaltVarde; //Returnerar det gamla värdet till den hittade noden.
+        return gammaltVarde;                                                //Returnerar det gamla värdet till den hittade noden.
 
     }
 
@@ -210,35 +207,28 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public String toString(){
-        //Uppgift 2. Skriv denna metoden så att värdena i listan kommer ut i formatet [värde, värde, värde]. Bara [] om listan är tom. Använd StringBuilder eller Joiner.
+        StringBuilder skriv = new StringBuilder();                          //Skapar en StringBuilder som jag kan appenda information på.
+        skriv.append('[');                                                  //Startar toStringen med en klammeparentes, oavsett om listan är tom eller inte.
+        if(!tom()){                                                         //Om listan inte är tom så går vi in här.
+            Node<T> current = hode;                                         //Sätter en current Node som pekar på hode.
+            skriv.append(current.verdi);                                    //lägger till värdet för current i vår StringBuilder
+            current = current.neste;                                        //Gör så att current hoppar fram ett steg i listan.
 
-        //Här har jag tänkt mig att skriva en kod som först "Stringifierar" innehållet i listan. Sen gå igenom med lökke för att få med allt innehållet och såklart att ha med tillfället
-        //där listan är tom med hjälp av if-statements.
-
-        StringBuilder skriv = new StringBuilder(); //Skapar en StringBuilder som jag kan appenda information på.
-        skriv.append('['); //Startar toStringen med en klammeparentes, oavsett om listan är tom eller inte.
-        if(!tom()){ //Om listan inte är tom så går vi in här.
-            Node<T> current = hode; //Sätter en current Node som pekar på hode.
-            skriv.append(current.verdi); //lägger till värdet för current i vår StringBuilder
-            current = current.neste; //Gör så att current hoppar fram ett steg i listan.
-
-            while(current != null){ //Löper igenom hela listan med whilelökke.
-                skriv.append(',').append(' ').append(current.verdi); //lägger till karaktärer för att få rätt formatering plus värdet för current i vår StringBuilder
-                current = current.neste; //Hoppar ett steg.
+            while(current != null){                                         //Löper igenom hela listan med whilelökke.
+                skriv.append(',').append(' ').append(current.verdi);        //lägger till karaktärer för att få rätt formatering plus värdet för current i vår StringBuilder
+                current = current.neste;                                    //Hoppar ett steg.
             }
         }
-        skriv.append(']'); //Avslutar med en klammeparentes. Även tom lista.
-        return skriv.toString(); //Returnerar toString.
+        skriv.append(']');                                                  //Avslutar med en klammeparentes. Även tom lista.
+        return skriv.toString();                                            //Returnerar toString.
 
     }
 
     public String omvendtString(){
-        //Uppgift 2. Skriv denna metoden för att skriva ut String-värden, fast åt motsatt håll från metoden över.
-        //Här har jag tänkt att försöka mig på motsatsen av det över. Får se om jag får några överraskningar.
         StringBuilder skrivBak = new StringBuilder();
         skrivBak.append('[');
         if (!tom()){
-            Node<T> current = hale;   //Ca samma metod som ovan, bara att jag startar med current på halen och går bakover med forrige.
+            Node<T> current = hale;                                         //Ca samma metod som ovan, bara att jag startar med current på halen och går bakover med forrige.
             skrivBak.append(current.verdi);
             current = current.forrige;
 
