@@ -148,12 +148,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             siste.forrige = null;
         }
         else{
-            Node<T> current = hode;                                        //Annars sätter vi en current till hodenoden.
-            while(current.neste != null){                                  //Löper igenom så länge listan inte är null.
-                current = current.neste;                                   //Flyttar current ett steg framåt.
-            }
-            current.neste = siste;                                         //Sätter siste til att vara efter current som här är det sista värdet.
-            siste.forrige = current;                                       //Sätter forrigepekeren på siste till current.
+            siste.forrige = hale;                                          //Annars sätter vi sistes forrigepekare till halen.
+            hale.neste = siste;                                            //Sätter halen sin nestepekare till vår sistevariabel.
         }
         hale = siste;                                                      //Sätter halepekaren till siste.
         antall++;                                                          //Plussar på antall
