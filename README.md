@@ -26,11 +26,28 @@ I oppgaven har vi hatt følgende arbeidsfordeling:
 
 # Beskrivelse av oppgaveløsning (maks 5 linjer per oppgave)
 
-* Oppgave 1: Løste ved å implementere..
-* Oppgave 2:
-* Oppgave 3:
-* Oppgave 4:
+* Oppgave 1: Denna löste jag genom att starta med tom() metoden. Då kunde jag gå vidare med antall()
+genom att använda mig av tom() och sen räkna upp antalet. Till slut så skrev jag en konstruktör,
+men på grund av felaktiga pekare i min första lösning så skrev jag om den senare när de andra uppgifterna
+fick fel i testerna.
+
+* Oppgave 2: toString() och omvendtString() löste jag genom att sätta upp en StringBuilder som sen la till
+värden i listan genom .append. Här fick jag först en del fel med omvendtString() och det visade sig vara på grund
+av min konstruktör.
+I leggInn() så gjorde jag först en väldigt ineffektiv kod som loopade igenom hela listan istället för att
+använda mig av halepekaren när jag la till en ny node. Ändrade detta lite senare.
+
+* Oppgave 3: Gjorde metoden finnNode() genom att implementera forlökker som gick antingen framåt från hode eller
+bakåt från hale. Fick en del problem med testing här, men det visade sig vara på grund av fel jag gjort tidigare
+i obligen. Här hade jag tänkt rätt.
+hent() och oppdater() fick jag ordnat ganska fort med indeksKontroll och genom att lagra gammalt värde i en node.
+
+* Oppgave 4: indeksTil() fick jag gjort ganska fort genom att löpa genom listan och se om värdet i parametern
+matchade ett värde i listan. inneholder() fick jag till genom att kolla om indeksTil returnerar -1 eller inte.
+
 * Oppgave 5:
+
 * Oppgave 6:
+
 * Oppgave 8:
 
