@@ -167,6 +167,11 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         //4. Verdi ska läggas mellan två andra värden i listan.
         //Kom ihåg att sätta alla forrige och nestepekare rätt. Hode ska ha null på forrige och hale ska ha null på neste.
         //Kolla genom checklistan i uppgiften innan du är klar.
+        Objects.requireNonNull(verdi, "Värdet är null"); //Kollar om värdet är null.
+        if(indeks < 0 || indeks > antall){
+            throw new IndexOutOfBoundsException("Index är inte lovlig");
+        }
+        indeksKontroll(indeks, true); //Kollar att indexen är lovlig.
 
         throw new UnsupportedOperationException();
     }
