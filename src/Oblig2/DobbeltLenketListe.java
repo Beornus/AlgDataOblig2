@@ -68,8 +68,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public DobbeltLenketListe(T[] a) {
-        //this();                                                                             //Kallar standardkonstruktören med originalvärden som vi kan bygga vidare på.
-        Objects.requireNonNull(a, "Tabellen a är null!");                            //Får ikke skrevet ut denne meldingen enda.
+        Objects.requireNonNull(a, "Tabellen a är null!");
         for(T current : a){                             //Gör en forEach-lökke för att gå igenom alla element i a.
             if(current == null) continue;               //Om det aktuella värdet i vår lökke är null så hoppar den over med continue; (Tips från medstudent. Aldrig använt continue förr)
 
@@ -118,13 +117,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public int antall(){
         if(!tom()){                                                        //Om listan inte är tom så går vi in och räknar antal noder.
-            Node aktuell=hode;                                             //Sätter en variabel på första hodenoden som vi ska räkna framåt.
-        antall=0;                                                          //Sätter räknaren på 0. (Kan nog ta bort denna då vi har 0 i konstruktören.)
-        while(aktuell!=null){                                              //Så länge aktuell inte är null så går vi igenom lökken.
-        antall++;                                                          //Ökar på räknaren för antall.
-        aktuell=aktuell.neste;                                             //Sätter aktuell till att vara nästa värde i listan.
-        }
-        return antall;                                                     //Returnerar antal värden i listan.
+            /*Node aktuell=hode;                                             //Sätter en variabel på första hodenoden som vi ska räkna framåt.
+            //antall=0;                                                          //Sätter räknaren på 0. (Kan nog ta bort denna då vi har 0 i konstruktören.)
+            while(aktuell!=null){                                              //Så länge aktuell inte är null så går vi igenom lökken.
+                antall++;                                                          //Ökar på räknaren för antall.
+                aktuell=aktuell.neste;                                             //Sätter aktuell till att vara nästa värde i listan.
+            }*/
+            return antall;                                                     //Returnerar antal värden i listan.
         }
         else{                                                              //Om listan är tom så returneras 0.
             return 0;
@@ -168,12 +167,46 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         //Kom ihåg att sätta alla forrige och nestepekare rätt. Hode ska ha null på forrige och hale ska ha null på neste.
         //Kolla genom checklistan i uppgiften innan du är klar.
         Objects.requireNonNull(verdi, "Värdet är null"); //Kollar om värdet är null.
-        if(indeks < 0 || indeks > antall){
+        /*if(indeks < 0 || indeks > antall){
             throw new IndexOutOfBoundsException("Index är inte lovlig");
-        }
+        }*/
         indeksKontroll(indeks, true); //Kollar att indexen är lovlig.
 
-        throw new UnsupportedOperationException();
+        if(indeks == 0){ //Om index är 0 så ska vi lägga in värdet längst fram i listan.
+            Node<T> forste = new Node<>(verdi); //Skapar en ny node med verdi
+            if(antall != 0){ //Om antall ikke er 0 går vi in här.
+                forste.neste = hode; //förstas nestepekare pekar på hode.
+                hode = forste; //Sätter hode till att vara första.
+                forste.forrige = null; //Sätter forrigepekaren till hode att vara null.
+            }
+            else{ //Om listan är tom så har vi nu bara ett element så det blir både hode och hale.
+                hale = hode = forste;
+                forste.neste = null; //om listan bara har den ena elementet blir nästapekaren null.
+                forste.forrige = null;
+            }
+        }
+        else if(indeks == antall){ //Om indeks är samma som antal så ska det nya värdet in bakerst i listan.
+            Node<T> siste = new Node<>(verdi); //Skapar ny Node med verdi.
+            hale = hale.neste = siste; //Sätter hale till att vara hale.neste som ska vara verdi.
+            siste.neste = null; //Sätter nestepekaren till att vara null.
+        }
+        else{
+            Node<T> mellan = new Node<>(verdi); //Skapar ny node med verdi.
+            Node<T> current = hode; //Startar med att sätta en currentpekare på hode.
+            Node<T> temp = null; //Sätter en temporärpekare på null.
+            for(int i = 1; i < indeks; i++){ //Startar på 1 då vi har gått igenom tillfället med först i listan. Löper igenom fram till indeks.
+                current = current.neste;
+            }
+            temp = current.neste; //Lagrar infon i current.neste i temp.
+            temp.forrige = current; //Sätter temp.forrige till att vara current.
+
+            current.neste = mellan; //Här ordnar jag så att alla pekarna stämmer mellan temp och mellan.
+            mellan.forrige = current;
+            mellan.neste = temp;
+            temp.forrige = mellan;
+        }
+        endringer++; //Plussar på endringer då jag lagt in ett nytt värde.
+        antall++; //Plussar på antall då vi har fått in ett nytt värde.
     }
 
     @Override
