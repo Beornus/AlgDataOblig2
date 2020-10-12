@@ -383,10 +383,17 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public Iterator<T> iterator(){
+        //Uppgift 8b
+
+        //Denna ska returnera en instans av iteratorklassen.
         throw new UnsupportedOperationException();
     }
 
     public Iterator<T> iterator(int indeks){
+        //Uppgift 8d
+
+        //Denna ska kolla att indeksen är lovlig.
+        //Ska sen använda konstruktören i 8c för att returnera en instans av iteratorklassen.
         throw new UnsupportedOperationException();
     }
 
@@ -402,6 +409,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
 
         private DobbeltLenketListeIterator(int indeks) {
+            //Uppgift 8c
+
+            //Denna ska sätta pekaren denne till den noden som är på den sagda indexen.
+            //Resten ska vara som i den färdigkodade konstruktören.
             throw new UnsupportedOperationException();
         }
 
@@ -412,6 +423,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         @Override
         public T next() {
+            //Uppgift 8a
+
+            //Denna metoden ska kolla om iteratorendringer är lik endringer.
+            //Om inte kastas en ConcurrentModificationException.
+            //Sen en NoSuchElementException om hasNext() ikke är true.
+            //Sen sätts fjernOk() till true. Verdien till den returneras och flyttas till nästa node.
+
             throw new UnsupportedOperationException();
         }
 
