@@ -283,19 +283,53 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public T fjern(int indeks){
         indeksKontroll(indeks, false);                  //Kollar index.
         T taBort;                                               //Variabeln där vi ska spara värdet vi tar bort.
-        if(indeks == 0){                                        //Om vi ska ta bort först i listan.
-            taBort = hode.verdi;                                //Värdet vi tar bort.
-            hode = hode.neste;                                  //Sätter hode till att vara nästa i listan.
-            if(antall == 1){                                    //Om det bara är ett värde i listan.
-                hale = hode;                                    //Sätter hale och hode på samma värde.
+        if(tom()){ //Om listan är tom så returnerar vi null.
+            return null;
+        }
+        else if (antall == 1){ //Om antall är 1 så är det bara ett värde. Sätter taBort till att vara hode och sätter sen hode och hale att vara null.
+            taBort = hode.verdi;
+            hode = hale = null;
+        }
+        else if(antall == 2){ //Om antall är 2 så har vi två alternativ. Antingen är indeks hode eller hale.
+            if(indeks == 0){
+                taBort = hode.verdi;
+                hode = hode.neste;
+                hode.forrige = null;
+            }
+            else{
+                taBort = hale.verdi;
+                hale = hale.forrige;
+                hale.neste = null;
             }
         }
-        else{
-            Node<T> foreIndex = finnNode(indeks -1);     //Node som pekar på noden innan vår index.
+        else{ //Om inte antalet är 0, 1 eller 2 så går vi in här.
+            if(indeks == 0){
+                taBort = hode.verdi;
+                hode = hode.neste;
+                hode.forrige = null;
+            }
+            else if(indeks == antall-1){
+                taBort = hale.verdi;
+                hale = hale.forrige;
+                hale.neste = null;
+            }
+            else{
+                Node<T> temp;
+                Node<T> current = hode;
+                for(int i = 1; i < indeks; i++){
+                    current = current.neste;
+                }
+                taBort = current.neste.verdi;
+                temp = current.neste;
+                current.neste = temp.neste;
+                temp.neste.forrige = current;
+            }
+
+            /*Node<T> foreIndex = finnNode(indeks -1);     //Node som pekar på noden innan vår index.
             Node<T> index = foreIndex.neste;                    //Vår index som ska tas bort.
             taBort = index.verdi;                               //Lagrar värdet som ska tas bort.
             if(index == hale) hale = foreIndex;                 //Om vår värde på index är sist i tabellen så sätter vi hale att vara värdet innan.
-            foreIndex.neste = index.neste;                      //Sätter föreIndex sin neste att vara index.neste.
+            foreIndex.neste = index.neste; */                     //Sätter föreIndex sin neste att vara index.neste.
         }
         endringer++;                                            //Plussar på endringar.
         antall--;                                               //Tar minus på antall då vi har tagit bort från listan.
@@ -330,12 +364,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         StringBuilder skrivBak = new StringBuilder();
         skrivBak.append('[');
         if (!tom()){
-            /*Node<T> current = hale;                                         //Ca samma metod som ovan, bara att jag startar med current på halen och går bakover med forrige.
+            Node<T> current = hale;                                         //Ca samma metod som ovan, bara att jag startar med current på halen och går bakover med forrige.
             skrivBak.append(current.verdi);
-            current = current.forrige;*/
+            current = current.forrige;
 
-            skrivBak.append(hale.verdi);
-            Node<T> current = hale.forrige;
+            /*skrivBak.append(hale.verdi);
+            Node<T> current = hale.forrige;*/
 
             while(current != null){
                 skrivBak.append(',').append(' ').append(current.verdi);
