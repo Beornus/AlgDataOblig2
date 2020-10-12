@@ -156,57 +156,44 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public void leggInn(int indeks,T verdi){
-        //Metoden får in en indeks och en verdi som parameter.
-        //Den ska sätta in det nya värdet på indeksen i parametern och då kommer alla andra värden efter den indexen att flyttas ett hack framåt.
-        //Bara indexer från 0 till antall är giltiga.
-        //Passa på fyra tillfällen:
-        //1. Listan är tom.
-        //2. Verdi ska läggas först i listan.
-        //3. Verdi ska läggas bakerst i listan.
-        //4. Verdi ska läggas mellan två andra värden i listan.
-        //Kom ihåg att sätta alla forrige och nestepekare rätt. Hode ska ha null på forrige och hale ska ha null på neste.
-        //Kolla genom checklistan i uppgiften innan du är klar.
-        Objects.requireNonNull(verdi, "Värdet är null"); //Kollar om värdet är null.
-        /*if(indeks < 0 || indeks > antall){
-            throw new IndexOutOfBoundsException("Index är inte lovlig");
-        }*/
-        indeksKontroll(indeks, true); //Kollar att indexen är lovlig.
+        Objects.requireNonNull(verdi, "Värdet är null");        //Kollar om värdet är null.
+        indeksKontroll(indeks, true);                            //Kollar att indexen är lovlig.
 
-        if(indeks == 0){ //Om index är 0 så ska vi lägga in värdet längst fram i listan.
-            Node<T> forste = new Node<>(verdi); //Skapar en ny node med verdi
-            if(antall != 0){ //Om antall ikke er 0 går vi in här.
-                forste.neste = hode; //förstas nestepekare pekar på hode.
-                hode = forste; //Sätter hode till att vara första.
-                forste.forrige = null; //Sätter forrigepekaren till hode att vara null.
+        if(indeks == 0){                                                //Om index är 0 så ska vi lägga in värdet längst fram i listan.
+            Node<T> forste = new Node<>(verdi);                         //Skapar en ny node med verdi
+            if(antall != 0){                                            //Om antall ikke er 0 går vi in här.
+                forste.neste = hode;                                    //förstas nestepekare pekar på hode.
+                hode = forste;                                          //Sätter hode till att vara första.
+                forste.forrige = null;                                  //Sätter forrigepekaren till hode att vara null.
             }
-            else{ //Om listan är tom så har vi nu bara ett element så det blir både hode och hale.
+            else{                                                       //Om listan är tom så har vi nu bara ett element så det blir både hode och hale.
                 hale = hode = forste;
-                forste.neste = null; //om listan bara har den ena elementet blir nästapekaren null.
+                forste.neste = null;                                    //om listan bara har den ena elementet blir nästapekaren null.
                 forste.forrige = null;
             }
         }
-        else if(indeks == antall){ //Om indeks är samma som antal så ska det nya värdet in bakerst i listan.
-            Node<T> siste = new Node<>(verdi); //Skapar ny Node med verdi.
-            hale = hale.neste = siste; //Sätter hale till att vara hale.neste som ska vara verdi.
-            siste.neste = null; //Sätter nestepekaren till att vara null.
+        else if(indeks == antall){                                      //Om indeks är samma som antal så ska det nya värdet in bakerst i listan.
+            Node<T> siste = new Node<>(verdi);                          //Skapar ny Node med verdi.
+            hale = hale.neste = siste;                                  //Sätter hale till att vara hale.neste som ska vara verdi.
+            siste.neste = null;                                         //Sätter nestepekaren till att vara null.
         }
         else{
-            Node<T> mellan = new Node<>(verdi); //Skapar ny node med verdi.
-            Node<T> current = hode; //Startar med att sätta en currentpekare på hode.
-            Node<T> temp = null; //Sätter en temporärpekare på null.
-            for(int i = 1; i < indeks; i++){ //Startar på 1 då vi har gått igenom tillfället med först i listan. Löper igenom fram till indeks.
+            Node<T> mellan = new Node<>(verdi);                         //Skapar ny node med verdi.
+            Node<T> current = hode;                                     //Startar med att sätta en currentpekare på hode.
+            Node<T> temp;                                               //Sätter en temporärpekare.
+            for(int i = 1; i < indeks; i++){                            //Startar på 1 då vi har gått igenom tillfället med först i listan. Löper igenom fram till indeks.
                 current = current.neste;
             }
-            temp = current.neste; //Lagrar infon i current.neste i temp.
-            temp.forrige = current; //Sätter temp.forrige till att vara current.
+            temp = current.neste;                                       //Lagrar infon i current.neste i temp.
+            temp.forrige = current;                                     //Sätter temp.forrige till att vara current.
 
-            current.neste = mellan; //Här ordnar jag så att alla pekarna stämmer mellan temp och mellan.
+            current.neste = mellan;                                     //Här ordnar jag så att alla pekarna stämmer mellan temp och mellan.
             mellan.forrige = current;
             mellan.neste = temp;
             temp.forrige = mellan;
         }
-        endringer++; //Plussar på endringer då jag lagt in ett nytt värde.
-        antall++; //Plussar på antall då vi har fått in ett nytt värde.
+        endringer++;                                                    //Plussar på endringer då jag lagt in ett nytt värde.
+        antall++;                                                       //Plussar på antall då vi har fått in ett nytt värde.
     }
 
     @Override
@@ -258,11 +245,19 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean fjern(T verdi){
+        //Denna ska ta bort verdi från listan och sen returnera true.
+        //Om det finns flera av samma värde så ska det första från vänster tas bort.
+        //Om verdi inte finns i listan så ska metoden returnera false.
+        //Det ska inte kastas undantag om listan är null. Istället false.
+        //Ska inte använda mig av metoderna indeksTil() eller fjern(indeks).
         throw new UnsupportedOperationException();
     }
 
     @Override
     public T fjern(int indeks){
+        //Denna ska ta bort (och returnera) värdet på position indeks.
+        //Kolla indexen att det går.
+
         throw new UnsupportedOperationException();
     }
 
