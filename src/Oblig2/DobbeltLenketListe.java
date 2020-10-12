@@ -198,7 +198,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean inneholder(T verdi){
-        if (indeksTil(verdi) != -1){ //Om indexen till indeksTil(verdi) inte är -1 så returneras true. Annars false.
+        if (indeksTil(verdi) != -1){   //Om indexen till indeksTil(verdi) inte är -1 så returneras true. Annars false.
             return true;
         }
         else{
@@ -250,32 +250,55 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         //Om verdi inte finns i listan så ska metoden returnera false.
         //Det ska inte kastas undantag om listan är null. Istället false.
         //Ska inte använda mig av metoderna indeksTil() eller fjern(indeks).
-        throw new UnsupportedOperationException();
+        if(verdi == null){ //Om verdi är null så returnerar vi false.
+            return false;
+        }
+        Node<T> current = hode; //Sätter en current.
+        Node<T> before = null; //Sätter en before som ska peka till den efter current.
+        for(int i=0; i<antall;i++){ //Löper igenom hela listan.
+            if(current.verdi.equals(verdi)){ //Om verdi på current matchar vår verdi så hoppar vi ur lökken.
+                break;
+            }
+            before = current; //Sätter before till current.
+            current = current.neste; //Sätter current till att vara current.neste.
+        }
+        if (current == null) return false; //Om current är null så returnerar vi false.
+        else if(current == hode) hode = hode.neste; //Om current är hode så flyttar vi hode ett steg framåt.
+        else before.neste = current.neste; //Sätter before.neste till att vara current.neste.
+
+        if(current == hale){ //Om current är halen så sätter vi halen till att vara before.
+            hale = before;
+        }
+
+        current.verdi = null; //Nollställer värden.
+        current.neste = null;
+
+        endringer++; //Plussar på endringar;
+        antall--; //Tar minus på antal då vi tar bort från listan.
+
+        return true;
     }
 
     @Override
     public T fjern(int indeks){
-        //Denna ska ta bort (och returnera) värdet på position indeks.
-        //Kolla indexen att det går.
-
-        indeksKontroll(indeks, false); //Kollar index.
-        T taBort; //Variabeln där vi ska spara värdet vi tar bort.
-        if(indeks == 0){ //Om vi ska ta bort först i listan.
-            taBort = hode.verdi; //Värdet vi tar bort.
-            hode = hode.neste; //Sätter hode till att vara nästa i listan.
-            if(antall == 1){ //Om det bara är ett värde i listan.
-                hale = hode; //Sätter hale och hode på samma värde.
+        indeksKontroll(indeks, false);                  //Kollar index.
+        T taBort;                                               //Variabeln där vi ska spara värdet vi tar bort.
+        if(indeks == 0){                                        //Om vi ska ta bort först i listan.
+            taBort = hode.verdi;                                //Värdet vi tar bort.
+            hode = hode.neste;                                  //Sätter hode till att vara nästa i listan.
+            if(antall == 1){                                    //Om det bara är ett värde i listan.
+                hale = hode;                                    //Sätter hale och hode på samma värde.
             }
         }
         else{
-            Node<T> foreIndex = finnNode(indeks -1); //Node som pekar på noden innan vår index.
-            Node<T> index = foreIndex.neste; //Vår index som ska tas bort.
-            taBort = index.verdi; //Lagrar värdet som ska tas bort.
-            if(index == hale) hale = foreIndex; //Om vår värde på index är sist i tabellen så sätter vi hale att vara värdet innan.
-            foreIndex.neste = index.neste; //Sätter föreIndex sin neste att vara index.neste.
+            Node<T> foreIndex = finnNode(indeks -1);     //Node som pekar på noden innan vår index.
+            Node<T> index = foreIndex.neste;                    //Vår index som ska tas bort.
+            taBort = index.verdi;                               //Lagrar värdet som ska tas bort.
+            if(index == hale) hale = foreIndex;                 //Om vår värde på index är sist i tabellen så sätter vi hale att vara värdet innan.
+            foreIndex.neste = index.neste;                      //Sätter föreIndex sin neste att vara index.neste.
         }
-        endringer++; //Plussar på endringar.
-        antall--; //Tar minus på antall då vi har tagit bort från listan.
+        endringer++;                                            //Plussar på endringar.
+        antall--;                                               //Tar minus på antall då vi har tagit bort från listan.
         return taBort;
     }
 
