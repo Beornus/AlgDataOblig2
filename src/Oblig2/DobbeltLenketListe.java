@@ -245,52 +245,56 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean fjern(T verdi){
-        //Denna ska ta bort verdi från listan och sen returnera true.
-        //Om det finns flera av samma värde så ska det första från vänster tas bort.
-        //Om verdi inte finns i listan så ska metoden returnera false.
-        //Det ska inte kastas undantag om listan är null. Istället false.
-        //Ska inte använda mig av metoderna indeksTil() eller fjern(indeks).
-        if(verdi == null){ //Om verdi är null så returnerar vi false.
-            return false;
-        }
-        Node<T> current = hode; //Sätter en current.
-        Node<T> before = null; //Sätter en before som ska peka till den efter current.
-        for(int i=0; i<antall;i++){ //Löper igenom hela listan.
-            if(current.verdi.equals(verdi)){ //Om verdi på current matchar vår verdi så hoppar vi ur lökken.
-                break;
+        if(tom()) return false;                             //Om listan är tom så returneras false.
+        Node<T> current = hode;                             //Sätter en current.
+        for(int i= 0; i< antall; i++){                      //Löper igenom hela listan för att kolla om värdet finns i listan.
+            if(current.verdi.equals(verdi)){                //Om värdet på current matchar vårt värde i parametern går vi in här.
+                if(antall == 1){                            //Om antall är 1 så sätter vi hode och hale till null.
+                    hode = hale = null;
+                }
+                else if(antall == 2){                       //Om antall är 2 så är värdet antingen hode eller hale.
+                    if(i == 0){
+                        hode = hode.neste;
+                        hode.forrige = null;
+                    }
+                    else{
+                        hale = hale.forrige;
+                        hale.neste = null;
+                    }
+                }
+                else if(i == 0){                            //Om antall är över 2 så kollar jag om värdet är hodet.
+                    hode = hode.neste;
+                    hode.forrige = null;
+                }
+                else if(i == antall-1){                     //Annars kollar jag om det är halen.
+                    hale = hale.forrige;
+                    hale.neste = null;
+                }
+                else{                                       //Annars så är det mellan två noder och jag ordnar med pekarna.
+                    current.forrige.neste = current.neste;
+                    current.neste.forrige = current.forrige;
+                }
+                endringer++;                                //Plussar på endringer
+                antall--;                                   //Tar minus på antall
+                return true;                                //Returnerar true
             }
-            before = current; //Sätter before till current.
-            current = current.neste; //Sätter current till att vara current.neste.
+            current = current.neste;                        //Om i ikke är värdet så flyttar jag current till att vara current.neste.
         }
-        if (current == null) return false; //Om current är null så returnerar vi false.
-        else if(current == hode) hode = hode.neste; //Om current är hode så flyttar vi hode ett steg framåt.
-        else before.neste = current.neste; //Sätter before.neste till att vara current.neste.
-
-        if(current == hale){ //Om current är halen så sätter vi halen till att vara before.
-            hale = before;
-        }
-
-        current.verdi = null; //Nollställer värden.
-        current.neste = null;
-
-        endringer++; //Plussar på endringar;
-        antall--; //Tar minus på antal då vi tar bort från listan.
-
-        return true;
+        return false;                                       //Om vi kommer hit så är inte värdet i listan och vi returnerar false.
     }
 
     @Override
     public T fjern(int indeks){
         indeksKontroll(indeks, false);                  //Kollar index.
         T taBort;                                               //Variabeln där vi ska spara värdet vi tar bort.
-        if(tom()){ //Om listan är tom så returnerar vi null.
+        if(tom()){                                              //Om listan är tom så returnerar vi null.
             return null;
         }
-        else if (antall == 1){ //Om antall är 1 så är det bara ett värde. Sätter taBort till att vara hode och sätter sen hode och hale att vara null.
+        else if (antall == 1){                                  //Om antall är 1 så är det bara ett värde. Sätter taBort till att vara hode och sätter sen hode och hale att vara null.
             taBort = hode.verdi;
             hode = hale = null;
         }
-        else if(antall == 2){ //Om antall är 2 så har vi två alternativ. Antingen är indeks hode eller hale.
+        else if(antall == 2){                                   //Om antall är 2 så har vi två alternativ. Antingen är indeks hode eller hale.
             if(indeks == 0){
                 taBort = hode.verdi;
                 hode = hode.neste;
@@ -302,18 +306,18 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 hale.neste = null;
             }
         }
-        else{ //Om inte antalet är 0, 1 eller 2 så går vi in här.
-            if(indeks == 0){
+        else{                                                   //Om inte antalet är 0, 1 eller 2 så går vi in här.
+            if(indeks == 0){                                    //Om indeks är först i listan
                 taBort = hode.verdi;
                 hode = hode.neste;
                 hode.forrige = null;
             }
-            else if(indeks == antall-1){
+            else if(indeks == antall-1){                        //Om indeks är sist i listan
                 taBort = hale.verdi;
                 hale = hale.forrige;
                 hale.neste = null;
             }
-            else{
+            else{                                               //Om indeks ligger mellan två andra värden i listan så tar vi bort mellan dem och ändrar pekarna.
                 Node<T> temp;
                 Node<T> current = hode;
                 for(int i = 1; i < indeks; i++){
@@ -324,12 +328,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 current.neste = temp.neste;
                 temp.neste.forrige = current;
             }
-
-            /*Node<T> foreIndex = finnNode(indeks -1);     //Node som pekar på noden innan vår index.
-            Node<T> index = foreIndex.neste;                    //Vår index som ska tas bort.
-            taBort = index.verdi;                               //Lagrar värdet som ska tas bort.
-            if(index == hale) hale = foreIndex;                 //Om vår värde på index är sist i tabellen så sätter vi hale att vara värdet innan.
-            foreIndex.neste = index.neste; */                     //Sätter föreIndex sin neste att vara index.neste.
         }
         endringer++;                                            //Plussar på endringar.
         antall--;                                               //Tar minus på antall då vi har tagit bort från listan.
