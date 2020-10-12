@@ -45,9 +45,13 @@ hent() och oppdater() fick jag ordnat ganska fort med indeksKontroll och genom a
 * Oppgave 4: indeksTil() fick jag gjort ganska fort genom att löpa genom listan och se om värdet i parametern
 matchade ett värde i listan. inneholder() fick jag till genom att kolla om indeksTil returnerar -1 eller inte.
 
-* Oppgave 5:
+* Oppgave 5: Löste denna uppgiften genom att först ta reda på vart i listan indeksen var. För att på så sätt hitta
+vart det nya värdet skulle sättas in. Här var utmaningen att få in en node mellan två existerande noder.
+Genom att använda mig av av en temporär nodepekare så klarade jag att koppla ihop pekarna.
 
-* Oppgave 6:
+* Oppgave 6: här fick jag gå en del fram och tillbaka med vad jag var tvungen att göra med alla olika möjligheter.
+I starten såg jag mig för blind på lite exempel från kompendiet, men klarade till slut få grepp om att det viktigaste
+i denna uppgiften var att hitta alla cornercases och skriva rätt instruktioner till dem.
 
 * Oppgave 8:
 
