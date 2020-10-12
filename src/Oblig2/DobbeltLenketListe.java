@@ -258,7 +258,25 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         //Denna ska ta bort (och returnera) värdet på position indeks.
         //Kolla indexen att det går.
 
-        throw new UnsupportedOperationException();
+        indeksKontroll(indeks, false); //Kollar index.
+        T taBort; //Variabeln där vi ska spara värdet vi tar bort.
+        if(indeks == 0){ //Om vi ska ta bort först i listan.
+            taBort = hode.verdi; //Värdet vi tar bort.
+            hode = hode.neste; //Sätter hode till att vara nästa i listan.
+            if(antall == 1){ //Om det bara är ett värde i listan.
+                hale = hode; //Sätter hale och hode på samma värde.
+            }
+        }
+        else{
+            Node<T> foreIndex = finnNode(indeks -1); //Node som pekar på noden innan vår index.
+            Node<T> index = foreIndex.neste; //Vår index som ska tas bort.
+            taBort = index.verdi; //Lagrar värdet som ska tas bort.
+            if(index == hale) hale = foreIndex; //Om vår värde på index är sist i tabellen så sätter vi hale att vara värdet innan.
+            foreIndex.neste = index.neste; //Sätter föreIndex sin neste att vara index.neste.
+        }
+        endringer++; //Plussar på endringar.
+        antall--; //Tar minus på antall då vi har tagit bort från listan.
+        return taBort;
     }
 
     @Override
