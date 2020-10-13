@@ -117,13 +117,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public int antall(){
         if(!tom()){                                                        //Om listan inte är tom så går vi in och räknar antal noder.
-            /*Node aktuell=hode;                                             //Sätter en variabel på första hodenoden som vi ska räkna framåt.
-            //antall=0;                                                          //Sätter räknaren på 0. (Kan nog ta bort denna då vi har 0 i konstruktören.)
-            while(aktuell!=null){                                              //Så länge aktuell inte är null så går vi igenom lökken.
-                antall++;                                                          //Ökar på räknaren för antall.
-                aktuell=aktuell.neste;                                             //Sätter aktuell till att vara nästa värde i listan.
-            }*/
-            return antall;                                                     //Returnerar antal värden i listan.
+            return antall;                                                 //Returnerar antal värden i listan.
         }
         else{                                                              //Om listan är tom så returneras 0.
             return 0;
@@ -163,6 +157,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             Node<T> forste = new Node<>(verdi);                         //Skapar en ny node med verdi
             if(antall != 0){                                            //Om antall ikke er 0 går vi in här.
                 forste.neste = hode;                                    //förstas nestepekare pekar på hode.
+                hode.forrige = forste;
                 hode = forste;                                          //Sätter hode till att vara första.
                 forste.forrige = null;                                  //Sätter forrigepekaren till hode att vara null.
             }
@@ -174,7 +169,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
         else if(indeks == antall){                                      //Om indeks är samma som antal så ska det nya värdet in bakerst i listan.
             Node<T> siste = new Node<>(verdi);                          //Skapar ny Node med verdi.
-            hale = hale.neste = siste;                                  //Sätter hale till att vara hale.neste som ska vara verdi.
+            hale.neste = siste;                                         //Sätter hale till att vara hale.neste som ska vara verdi.
+            siste.forrige = hale;
+            hale = siste;
             siste.neste = null;                                         //Sätter nestepekaren till att vara null.
         }
         else{
@@ -370,9 +367,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             skrivBak.append(current.verdi);
             current = current.forrige;
 
-            /*skrivBak.append(hale.verdi);
-            Node<T> current = hale.forrige;*/
-
             while(current != null){
                 skrivBak.append(',').append(' ').append(current.verdi);
                 current = current.forrige;
@@ -384,19 +378,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public Iterator<T> iterator(){
-        //Uppgift 8b
-        //Denna ska returnera en instans av iteratorklassen.
-        return new DobbeltLenketListeIterator(); //Returnerar en ny DobbeltLenketListeIterator.
+        return new DobbeltLenketListeIterator();            //Returnerar en ny DobbeltLenketListeIterator.
     }
 
     public Iterator<T> iterator(int indeks){
-        //Uppgift 8d
-
-        //Denna ska kolla att indeksen är lovlig.
-        //Ska sen använda konstruktören i 8c för att returnera en instans av iteratorklassen.
-
-        indeksKontroll(indeks, true); //Kollar index.
-        return new DobbeltLenketListeIterator(indeks); //Returnerar ny DobbeltLenketListeIterator med indeks.
+        indeksKontroll(indeks, false);               //Kollar index.
+        return new DobbeltLenketListeIterator(indeks);      //Returnerar ny DobbeltLenketListeIterator med indeks.
     }
 
     private class DobbeltLenketListeIterator implements Iterator<T> {
@@ -411,14 +398,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
 
         private DobbeltLenketListeIterator(int indeks) {
-            //Uppgift 8c
-
-            //Denna ska sätta pekaren denne till den noden som är på den sagda indexen.
-            //Resten ska vara som i den färdigkodade konstruktören.
-
-            denne = finnNode(indeks); //Setter denne till att peka på den noden vi har på valt index.
-            fjernOK = false; //Samma som konstruktör ovan.
-            iteratorendringer = endringer; //Samma som konstruktör ovan.
+            denne = finnNode(indeks);                   //Setter denne till att peka på den noden vi har på valt index.
+            fjernOK = false;                            //Samma som konstruktör ovan.
+            iteratorendringer = endringer;              //Samma som konstruktör ovan.
         }
 
         @Override
@@ -428,19 +410,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         @Override
         public T next() {
-            //Uppgift 8a
-
-            //Denna metoden ska kolla om iteratorendringer är lik endringer.
-            //Om inte kastas en ConcurrentModificationException.
-            //Sen en NoSuchElementException om hasNext() ikke är true.
-            //Sen sätts fjernOk() till true. Verdien till denne returneras och flyttas till nästa node.
-
-            if(iteratorendringer != endringer) throw new ConcurrentModificationException("De är inte lika"); //Kollar om iteratorendrringer är lik endringer.
-            if(!hasNext()) throw new NoSuchElementException("Det finns ingen nästa."); //Om hasNext() är false så kastas ett undantag.
-            fjernOK = true; //Sätter fjernOk() till att vara true.
-            T denneVerdi = denne.verdi; //Lagrar värdet till denne.
-            denne = denne.neste; //Sätter denne till att vara denne.neste.
-            return denneVerdi; //Returnerar denneVerdi.
+            if(iteratorendringer != endringer) throw new ConcurrentModificationException("De är inte lika");    //Kollar om iteratorendrringer är lik endringer.
+            if(!hasNext()) throw new NoSuchElementException("Det finns ingen nästa.");                          //Om hasNext() är false så kastas ett undantag.
+            fjernOK = true;                                                                                     //Sätter fjernOk() till att vara true.
+            T denneVerdi = denne.verdi;                                                                         //Lagrar värdet till denne.
+            denne = denne.neste;                                                                                //Sätter denne till att vara denne.neste.
+            return denneVerdi;                                                                                  //Returnerar denneVerdi.
         }
 
         @Override
