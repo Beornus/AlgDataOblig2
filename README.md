@@ -53,5 +53,7 @@ Genom att använda mig av av en temporär nodepekare så klarade jag att koppla 
 I starten såg jag mig för blind på lite exempel från kompendiet, men klarade till slut få grepp om att det viktigaste
 i denna uppgiften var att hitta alla cornercases och skriva rätt instruktioner till dem.
 
-* Oppgave 8:
+* Oppgave 8: Denna uppgiften bestod mest av att följa instruktionerna i uppgiftstexten. Det stod ganska tydligt vad
+som skulle göras. Genom att kolla om iteratorendringar i alla tidigare uppgifter så fick jag skriva om lite koder så
+att jag inte fick felmeddelanden.
 
