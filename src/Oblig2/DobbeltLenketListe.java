@@ -238,6 +238,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         Node<T> hittadNode = finnNode(indeks);                              //Sätter en pekare mot noden som finnNode-metoden hittar med sitt index.
         T gammaltVarde = hittadNode.verdi;                                  //Sparar värdet på vår hittade node i en gammaltVarde-variabel.
         hittadNode.verdi = nyverdi;                                         // Sätter värdet på den hittade noden lik det nya värdet vi får in.
+        endringer++;                                                        //Plussar på endringer.
 
         return gammaltVarde;                                                //Returnerar det gamla värdet till den hittade noden.
 
@@ -384,9 +385,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public Iterator<T> iterator(){
         //Uppgift 8b
-
         //Denna ska returnera en instans av iteratorklassen.
-        throw new UnsupportedOperationException();
+        return new DobbeltLenketListeIterator(); //Returnerar en ny DobbeltLenketListeIterator.
     }
 
     public Iterator<T> iterator(int indeks){
@@ -394,7 +394,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         //Denna ska kolla att indeksen är lovlig.
         //Ska sen använda konstruktören i 8c för att returnera en instans av iteratorklassen.
-        throw new UnsupportedOperationException();
+
+        indeksKontroll(indeks, true); //Kollar index.
+        return new DobbeltLenketListeIterator(indeks); //Returnerar ny DobbeltLenketListeIterator med indeks.
     }
 
     private class DobbeltLenketListeIterator implements Iterator<T> {
@@ -413,7 +415,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
             //Denna ska sätta pekaren denne till den noden som är på den sagda indexen.
             //Resten ska vara som i den färdigkodade konstruktören.
-            throw new UnsupportedOperationException();
+
+            denne = finnNode(indeks); //Setter denne till att peka på den noden vi har på valt index.
+            fjernOK = false; //Samma som konstruktör ovan.
+            iteratorendringer = endringer; //Samma som konstruktör ovan.
         }
 
         @Override
@@ -428,9 +433,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             //Denna metoden ska kolla om iteratorendringer är lik endringer.
             //Om inte kastas en ConcurrentModificationException.
             //Sen en NoSuchElementException om hasNext() ikke är true.
-            //Sen sätts fjernOk() till true. Verdien till den returneras och flyttas till nästa node.
+            //Sen sätts fjernOk() till true. Verdien till denne returneras och flyttas till nästa node.
 
-            throw new UnsupportedOperationException();
+            if(iteratorendringer != endringer) throw new ConcurrentModificationException("De är inte lika"); //Kollar om iteratorendrringer är lik endringer.
+            if(!hasNext()) throw new NoSuchElementException("Det finns ingen nästa."); //Om hasNext() är false så kastas ett undantag.
+            fjernOK = true; //Sätter fjernOk() till att vara true.
+            T denneVerdi = denne.verdi; //Lagrar värdet till denne.
+            denne = denne.neste; //Sätter denne till att vara denne.neste.
+            return denneVerdi; //Returnerar denneVerdi.
         }
 
         @Override
